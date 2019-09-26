@@ -28,6 +28,10 @@ export type EpochCredits = {|
  * @private
  */
 const VoteAccountLayout = BufferLayout.struct([
+  Layout.publicKey('nodePubkey'),
+  Layout.publicKey('authorizedVoterPubkey'),
+  Layout.publicKey('authorizedWithdrawerPubkey'),
+  BufferLayout.u8('commission'),
   BufferLayout.nu64(), // votes.length
   BufferLayout.seq(
     BufferLayout.struct([
@@ -37,9 +41,6 @@ const VoteAccountLayout = BufferLayout.struct([
     BufferLayout.offset(BufferLayout.u32(), -8),
     'votes',
   ),
-  Layout.publicKey('nodePubkey'),
-  Layout.publicKey('authorizedVoterPubkey'),
-  BufferLayout.u8('commission'),
   BufferLayout.u8('rootSlotValid'),
   BufferLayout.nu64('rootSlot'),
   BufferLayout.nu64('epoch'),
