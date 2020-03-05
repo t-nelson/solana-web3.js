@@ -94,11 +94,12 @@ test('create and query nonce account', async () => {
   });
   await connection.sendTransaction(transaction, from, nonceAccount);
 
-  const expectedData = Buffer.alloc(68);
+  const expectedData = Buffer.alloc(76);
   expectedData.writeInt32LE(1, 0);
   from.publicKey.toBuffer().copy(expectedData, 4);
   const mockNonce = new Account();
   mockNonce.publicKey.toBuffer().copy(expectedData, 36);
+  expectedData.writeUint64LE(5000, 68);
 
   mockRpc.push([
     url,
